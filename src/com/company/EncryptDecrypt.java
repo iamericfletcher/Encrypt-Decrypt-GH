@@ -33,7 +33,7 @@ public class EncryptDecrypt {
             }
             if (alphabetCount == 0 && inputMessageLetter.matches("a")) {
                 alphabetIndex.append(0).append(" ");
-            } else if (alphabetCount == 0 && !inputMessageLetter.matches("[a-z]") && !inputMessageLetter.equals(" ")) {
+            } else if (alphabetCount == 0 && !inputMessageLetter.matches("[a-zA-Z]") && !inputMessageLetter.equals(" ")) {
                 alphabetIndex.append(inputMessageLetter).append(" ");
                 isUpperCase.append("false").append(" ");
             } else {
@@ -67,7 +67,7 @@ public class EncryptDecrypt {
         for (String index :
                 indexArray) {
 
-            int indexWithKeyCount = 0;
+            int indexWithKeyCount;
 
             if (index.matches("\\d+")) {
                 indexWithKeyCount = Integer.parseInt(index) + inputKey;
@@ -87,29 +87,43 @@ public class EncryptDecrypt {
 
 
     public static String replaceIndexWithLetters(StringBuilder indexArrayKey, StringBuilder isUpperCase) {
-
+        String[] isUpperCaseArray = isUpperCase.toString().split(" ");
         String[] alphabetIndexArray = indexArrayKey.toString().split(" ");
         StringBuilder outputCipher = new StringBuilder();
+        int indexCount = 0;
 
         int count = 0;
 
         for (String letterIndexPosition : alphabetIndexArray) {
-            for (int i = 0; i < ALPHABET.length; i++) {
+            for (String s : ALPHABET) {
 
                 if (!letterIndexPosition.matches("\\d+")) {
-                    outputCipher.append(letterIndexPosition).append(" ");
+
+                    if (alphabetIndexArray[indexCount].equals("")) {
+                        outputCipher.append(letterIndexPosition).append(" ");
+                    } else {
+                        outputCipher.append(letterIndexPosition);
+                    }
+
                     break;
+
                 } else if (count == Integer.parseInt(letterIndexPosition)) {
-                    outputCipher.append(ALPHABET[i]);
+
+                    if (isUpperCaseArray[indexCount].equals("true")) {
+                        outputCipher.append(s.toUpperCase());
+                    } else {
+                        outputCipher.append(s);
+                    }
                     break;
                 }
                 count++;
             }
+            indexCount++;
             count = 0;
         }
         return  outputCipher.toString();
     }
-//TODO Fix multiple spaces and lack of uppercase.
+
     public static String decryptShiftIndexes(StringBuilder alphabetIndex, int inputKey, StringBuilder isUpperCase) {
         String[] alphabetIndexArray = alphabetIndex.toString().split(" ");
         StringBuilder output = new StringBuilder();
