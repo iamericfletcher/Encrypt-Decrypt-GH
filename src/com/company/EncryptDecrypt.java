@@ -11,7 +11,7 @@ public class EncryptDecrypt {
             "u", "v", "w", "x", "y", "z"
     };
 
-    public static String alphabetIndexPositions(String inputMessage, int inputKey, String mode) {
+    public static String alphabetIndexPositions(String inputMessage, int inputKey, String mode, String alg) {
 
         String[] inputMessageArray = inputMessage.split("");
 
@@ -49,7 +49,14 @@ public class EncryptDecrypt {
         if (mode.equals("enc")) {
             return indexWithKey(alphabetIndex, inputKey, isUpperCase);
         } else if (mode.equals("dec")) {
-            return decryptShiftIndexes(alphabetIndex, inputKey, isUpperCase);
+
+            if (alg.equals("shift")) {
+                return decryptShiftIndexes(alphabetIndex, inputKey, isUpperCase);
+            } else if (alg.equals("unicode")) {
+                return decrypt(inputMessage, inputKey);
+            } else {
+                return "Algorithm must be shift or unicode!";
+            }
         } else {
             return "Mode must be enc or dec!";
         }
@@ -224,7 +231,7 @@ public class EncryptDecrypt {
             } else if (alg.equals("shift")) {
 
                 while ((s = reader.readLine()) != null) {
-                    writer.write(alphabetIndexPositions(s, key, mode));
+                    writer.write(alphabetIndexPositions(s, key, mode, alg));
                     writer.newLine();
                 }
 
@@ -253,7 +260,7 @@ public class EncryptDecrypt {
             } else if (alg.equals("shift")) {
 
                 while ((s = reader.readLine()) != null) {
-                    writer.write(alphabetIndexPositions(s, key, mode));
+                    writer.write(alphabetIndexPositions(s, key, mode, alg));
                     writer.newLine();
                 }
 

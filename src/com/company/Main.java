@@ -63,9 +63,9 @@ public class Main {
 
                 } else if (alg.equals("shift")) {
                     if (inputFile == null && outputFilePath == null) {
-                        System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode));
+                        System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode, alg));
                     } else if (isDataProvided && isInProvided) {
-                        System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode));
+                        System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode, alg));
                     } else {
                         EncryptDecrypt.writeCipherTextFile(inputFile, outputFilePath, key, alg, mode);
                     }
@@ -77,9 +77,9 @@ public class Main {
 
 
                 if (inputFile == null && outputFilePath == null) {
-                    System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode));
+                    System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode, alg));
                 } else if (isDataProvided && isInProvided) {
-                    System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode));
+                    System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode, alg));
                 } else {
                     EncryptDecrypt.readCipherTextFile(inputFile, outputFilePath, key, alg, mode);
                 }
