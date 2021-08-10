@@ -66,6 +66,13 @@ Output:
 Welcome to hyperskill!
 ```
 
+## Reflections
+
+For my next project, I would like to implement one or more fundamental principles of object-oriented programming (
+encapsulation, inheritance, and polymorphism).
+
+I'd like to learn more about design patterns.
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

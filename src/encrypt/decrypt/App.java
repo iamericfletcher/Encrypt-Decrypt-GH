@@ -1,9 +1,10 @@
-package com.company;
+package encrypt.decrypt;
 
 import java.io.File;
+import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) {
+public class App {
+    public static void main(String[] args) throws IOException {
 
         /*
          * This program has six arguments:
@@ -25,33 +26,27 @@ public class Main {
         boolean isInProvided = false;
         File inputFile = null;
         File outputFilePath = null;
-
         String workingDirectory = System.getProperty("user.dir");
 
-
         for (int i = 0; i < args.length; i++) {
-            if ("-alg".equals(args[i])) {
-                alg = args[i +1];
-            } else if ("-mode".equals(args[i])) {
-                mode = args[i + 1];
-            } else if ("-key".equals(args[i])) {
-                key = Integer.parseInt(args[i + 1]);
-            } else if ("-data".equals(args[i])) {
-                isDataProvided = true;
-                data = args[i + 1];
-            } else if ("-in".equals(args[i])) {
-                isInProvided = true;
-                inputFile = new File(workingDirectory + "\\" + args[i + 1]);
-            } else if ("-out".equals(args[i])) {
-                outputFilePath = new File(workingDirectory + "\\" + args[i + 1]);
+            switch (args[i]) {
+                case "-alg" -> alg = args[i + 1];
+                case "-mode" -> mode = args[i + 1];
+                case "-key" -> key = Integer.parseInt(args[i + 1]);
+                case "-data" -> {
+                    isDataProvided = true;
+                    data = args[i + 1];
+                }
+                case "-in" -> {
+                    isInProvided = true;
+                    inputFile = new File(workingDirectory + "\\" + args[i + 1]);
+                }
+                case "-out" -> outputFilePath = new File(workingDirectory + "\\" + args[i + 1]);
             }
         }
-
         switch (mode) {
             case "enc":
-
                 if (alg.equals("unicode")) {
-
                     if (inputFile == null && outputFilePath == null) {
                         System.out.println(EncryptDecrypt.encrypt(data, key));
                     } else if (isDataProvided && isInProvided) {
@@ -60,7 +55,6 @@ public class Main {
                         EncryptDecrypt.writeCipherTextFile(inputFile, outputFilePath, key, alg, mode);
                     }
                     break;
-
                 } else if (alg.equals("shift")) {
                     if (inputFile == null && outputFilePath == null) {
                         System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode, alg));
@@ -71,11 +65,7 @@ public class Main {
                     }
                     break;
                 }
-
-
             case "dec":
-
-
                 if (inputFile == null && outputFilePath == null) {
                     System.out.println(EncryptDecrypt.alphabetIndexPositions(data, key, mode, alg));
                 } else if (isDataProvided && isInProvided) {
@@ -84,11 +74,7 @@ public class Main {
                     EncryptDecrypt.readCipherTextFile(inputFile, outputFilePath, key, alg, mode);
                 }
                 break;
-
-            default:
-                break;
         }
-
     }
 }
 
